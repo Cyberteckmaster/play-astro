@@ -1,11 +1,4 @@
 ---
-// src/pages/index.astro
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Astro Page</title>
-  </head>
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 export const prerender = true;
@@ -194,16 +187,38 @@ const structuredData = {
     <Hero />
     
     <!-- Core Services Section -->
-    <Services />
+    <section id="services">
+      <h2>Our Services</h2>
+      <p>Explore our cybersecurity training, zero trust solutions, and consulting services.</p>
+      <!-- Add service details or import Services.astro once confirmed -->
+    </section>
     
     <!-- Key Features -->
-    <Features />
+    <section id="features">
+      <h2>Why Choose Us</h2>
+      <p>Industry-leading courses, expert instructors, and cutting-edge technology.</p>
+      <!-- Add feature details or import Features.astro once confirmed -->
+    </section>
     
     <!-- FAQ Section for Rich Snippets -->
-    <FAQ />
+    <section id="faq">
+      <h2>Frequently Asked Questions</h2>
+      <details>
+        <summary>What is zero trust cybersecurity?</summary>
+        <p>Zero trust cybersecurity is a security framework that assumes no user or device should be trusted by default, requiring continuous verification and authentication for all access requests, following NIST 800-207 guidelines.</p>
+      </details>
+      <details>
+        <summary>How long does it take to become a certified ethical hacker?</summary>
+        <p>Our Certified Ethical Hacker (CEH) program typically takes 12 weeks to complete with dedicated study. The course includes hands-on labs, real-world scenarios, and preparation for industry certification exams.</p>
+      </details>
+    </section>
     
     <!-- Conversion-focused CTA -->
-    <CTA />
+    <section id="cta">
+      <h2>Get Started Today</h2>
+      <p>Join our cybersecurity training programs or contact us for consulting services.</p>
+      <a href="/contact" class="cta-button">Contact Us</a>
+    </section>
   </main>
 </Layout>
 
@@ -212,6 +227,47 @@ const structuredData = {
   main {
     min-height: 100vh;
     overflow-x: hidden;
+    padding: 2rem;
+  }
+
+  section {
+    margin: 4rem 0;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  details {
+    margin: 1rem 0;
+    text-align: left;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0.5rem;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #00aaff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 1rem;
   }
 
   /* Performance Optimizations */
@@ -266,6 +322,15 @@ const structuredData = {
       --bg-primary: #0a0a0a;
       --text-primary: #ffffff;
       --accent: #00aaff;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    .cta-button {
+      background-color: var(--accent);
     }
   }
 </style>
@@ -474,5 +539,3 @@ const structuredData = {
   }
 }
 </script>
-</Layout>
----
