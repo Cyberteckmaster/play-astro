@@ -1,108 +1,46 @@
 ---
-// src/components/Features.astro
+const features = [
+  { title: "Real-Time Threat Detection", description: "Stay ahead of threats with our advanced monitoring." },
+  { title: "Scalable Solutions", description: "Grow your security with your business." },
+  { title: "24/7 Support", description: "Our team is always here to help." },
+];
 ---
 
-<section id="features" class="features-section">
-  <h2>Why Choose CyberTeckMaster</h2>
-  <p class="section-description">Our unique approach sets us apart in cybersecurity education and solutions.</p>
-  
-  <div class="features-grid">
-    <article class="feature-card">
-      <h3>Expert Instructors</h3>
-      <p>Learn from CISSP-ISSAP certified professionals with real-world experience.</p>
-    </article>
-    <article class="feature-card">
-      <h3>Cutting-Edge Curriculum</h3>
-      <p>Stay ahead with courses on Web3, AI chatbots, and quantum cryptography.</p>
-    </article>
-    <article class="feature-card">
-      <h3>Hands-On Labs</h3>
-      <p>Practice in realistic environments with our advanced training platforms.</p>
-    </article>
-  </div>
+<section class="features">
+  <h2>Why Choose Us</h2>
+  <ul class="features-list">
+    {features.map((feature) => (
+      <li>
+        <h3>{feature.title}</h3>
+        <p>{feature.description}</p>
+      </li>
+    ))}
+  </ul>
 </section>
 
 <style>
-  .features-section {
+  .features {
     padding: 4rem 2rem;
     text-align: center;
-    background-color: var(--bg-secondary, #ffffff);
   }
-
   h2 {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: var(--text-primary, #1a1a1a);
+    margin-bottom: 2rem;
   }
-
-  .section-description {
-    font-size: 1.2rem;
-    max-width: 800px;
-    margin: 0 auto 2rem;
-    color: var(--text-secondary, #4a4a4a);
-  }
-
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  .features-list {
+    display: flex;
+    flex-wrap: wrap;
     gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
   }
-
-  .feature-card {
-    padding: 1.5rem;
-    background-color: var(--card-bg, #f9f9f9);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  li {
+    max-width: 300px;
+    padding: 1rem;
   }
-
-  .feature-card h3 {
+  h3 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
-    color: var(--text-primary, #1a1a1a);
   }
-
-  .feature-card p {
-    font-size: 1rem;
-    color: var(--text-secondary, #4a4a4a);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg-secondary: #2a2a2a;
-      --text-primary: #ffffff;
-      --text-secondary: #cccccc;
-      --card-bg: #1a1a1a;
-    }
-
-    .features-section {
-      background-color: var(--bg-secondary);
-    }
-
-    .feature-card {
-      background-color: var(--card-bg);
-    }
-
-    h2, .feature-card h3 {
-      color: var(--text-primary);
-    }
-
-    .section-description, .feature-card p {
-      color: var(--text-secondary);
-    }
-  }
-
-  @media (max-width: 600px) {
-    h2 {
-      font-size: 2rem;
-    }
-
-    .section-description {
-      font-size: 1rem;
-    }
-
-    .features-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+</style>
