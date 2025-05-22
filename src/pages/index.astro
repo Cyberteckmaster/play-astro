@@ -1,6 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+// Conditional imports to avoid resolution errors if components are missing
+let Services, Features, FAQ, CTA;
+try { Services = (await import('../components/Services.astro')).default; } catch {}
+try { Features = (await import('../components/Features.astro')).default; } catch {}
+try { FAQ = (await import('../components/FAQ.astro')).default; } catch {}
+try { CTA = (await import('../components/CTA.astro')).default; } catch {}
+
 export const prerender = true;
 
 const seoData = {
@@ -187,38 +194,56 @@ const structuredData = {
     <Hero />
     
     <!-- Core Services Section -->
-    <section id="services">
-      <h2>Our Services</h2>
-      <p>Explore our cybersecurity training, zero trust solutions, and consulting services.</p>
-      <!-- Add service details or import Services.astro once confirmed -->
-    </section>
+    {Services ? (
+      <Services />
+    ) : (
+      <section id="services">
+        <h2>Our Services</h2>
+        <p>Explore our cybersecurity training, zero trust solutions, and consulting services.</p>
+        <!-- Add service details or create Services.astro in src/components/ -->
+      </section>
+    )}
     
     <!-- Key Features -->
-    <section id="features">
-      <h2>Why Choose Us</h2>
-      <p>Industry-leading courses, expert instructors, and cutting-edge technology.</p>
-      <!-- Add feature details or import Features.astro once confirmed -->
-    </section>
+    {Features ? (
+      <Features />
+    ) : (
+      <section id="features">
+        <h2>Why Choose Us</h2>
+        <p>Industry-leading courses, expert instructors, and cutting-edge technology.</p>
+        <!-- Add feature details or create Features.astro in src/components/ -->
+      </section>
+    )}
     
     <!-- FAQ Section for Rich Snippets -->
-    <section id="faq">
-      <h2>Frequently Asked Questions</h2>
-      <details>
-        <summary>What is zero trust cybersecurity?</summary>
-        <p>Zero trust cybersecurity is a security framework that assumes no user or device should be trusted by default, requiring continuous verification and authentication for all access requests, following NIST 800-207 guidelines.</p>
-      </details>
-      <details>
-        <summary>How long does it take to become a certified ethical hacker?</summary>
-        <p>Our Certified Ethical Hacker (CEH) program typically takes 12 weeks to complete with dedicated study. The course includes hands-on labs, real-world scenarios, and preparation for industry certification exams.</p>
-      </details>
-    </section>
+    {FAQ ? (
+      <FAQ />
+    ) : (
+      <section id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <details>
+          <summary>What is zero trust cybersecurity?</summary>
+          <p>Zero trust cybersecurity is a security framework that assumes no user or device should be trusted by default, requiring continuous verification and authentication for all access requests, following NIST 800-207 guidelines.</p>
+        </details>
+        <details>
+          <summary>How long does it take to become a certified ethical hacker?</summary>
+          <p>Our Certified Ethical Hacker (CEH) program typically takes 12 weeks to complete with dedicated study. The course includes hands-on labs, real-world scenarios, and preparation for industry certification exams.</p>
+        </details>
+        <!-- Add FAQ details or create FAQ.astro in src/components/ -->
+      </section>
+    )}
     
     <!-- Conversion-focused CTA -->
-    <section id="cta">
-      <h2>Get Started Today</h2>
-      <p>Join our cybersecurity training programs or contact us for consulting services.</p>
-      <a href="/contact" class="cta-button">Contact Us</a>
-    </section>
+    {CTA ? (
+      <CTA />
+    ) : (
+      <section id="cta">
+        <h2>Get Started Today</h2>
+        <p>Join our cybersecurity training programs or contact us for consulting services.</p>
+        <a href="/contact" class="cta-button">Contact Us</a>
+        <!-- Add CTA details or create CTA.astro in src/components/ -->
+      </section>
+    )}
   </main>
 </Layout>
 
