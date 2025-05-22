@@ -1,10 +1,16 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import Services from '../components/Services.astro';
+import About from '../components/Aboutsection.astro';
 import Features from '../components/Features.astro';
-import FAQ from '../components/FAQ.astro';
-import CTA from '../components/CTA.astro';
+import Hero from '../components/Hero.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Layout from '../layouts/Layout.astro';
+import Pricing from '../components/Pricingsection.astro';
+import Faq from '../components/FAQ.astro'; // Reuse existing FAQ.astro
+import Clients from '../components/Clients.astro';
+import Team from '../components/Team.astro';
+import Contact from '../components/Contactsection.astro';
+import CTA from '../components/CTA.astro'; // Reuse existing CTA.astro
+import Blogsection from '../components/Blogsection.astro';
 
 export const prerender = true;
 
@@ -12,6 +18,225 @@ const seoData = {
   title: "CyberTeckMaster | #1 Cybersecurity Training & Zero Trust Solutions 2025",
   description: "Master cybersecurity with CyberTeckMaster's certified ethical hacking courses, zero trust security solutions, Web3 development, AI chatbots & quantum cryptography. CISSP-ISSAP certified experts. Start your cyber career today!",
   keywords: "cybersecurity training, zero trust security, ethical hacking certification, CISSP course, Web3 development, AI chatbot development, quantum cryptography, cyber security solutions, penetration testing, NIST 800-207, managed security services",
+  ogImage: "/images/cyberteckmaster-og-image.webp",
+  canonicalURL: "https://cyberteckmaster.com/",
+  author: "CyberTeckMaster Team",
+  publishedTime: "2025-01-15T10:00:00.000Z",
+  modifiedTime: new Date().toISOString(),
+  type: "website",
+  locale: "en_US"
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://cyberteckmaster.com/#organization",
+      "name": "CyberTeckMaster",
+      "url": "https://cyberteckmaster.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://cyberteckmaster.com/images/logo.webp",
+        "width": 300,
+        "height": 100
+      },
+      "sameAs": [
+        "https://twitter.com/cyberteckmaster",
+        "https://linkedin.com/company/cyberteckmaster",
+        "https://github.com/cyberteckmaster",
+        "https://youtube.com/@cyberteckmaster"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-800-555-CYBER",
+        "contactType": "Customer Service",
+        "email": "info@cyberteckmaster.com",
+        "availableLanguage": "English"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "US",
+        "addressRegion": "CA",
+        "addressLocality": "San Francisco"
+      },
+      "foundingDate": "2020-01-01",
+      "numberOfEmployees": "50-100",
+      "description": "Leading cybersecurity training provider specializing in zero trust security, ethical hacking, Web3 development, and quantum cryptography solutions."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://cyberteckmaster.com/#website",
+      "url": "https://cyberteckmaster.com",
+      "name": "CyberTeckMaster",
+      "publisher": {
+        "@id": "https://cyberteckmaster.com/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://cyberteckmaster.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://cyberteckmaster.com/#webpage",
+      "url": "https://cyberteckmaster.com",
+      "name": "CyberTeckMaster | #1 Cybersecurity Training & Zero Trust Solutions 2025",
+      "description": "Master cybersecurity with CyberTeckMaster's certified ethical hacking courses, zero trust security solutions, Web3 development, AI chatbots & quantum cryptography.",
+      "isPartOf": {
+        "@id": "https://cyberteckmaster.com/#website"
+      },
+      "about": {
+        "@id": "https://cyberteckmaster.com/#organization"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://cyberteckmaster.com/images/cyberteckmaster-hero.webp"
+      },
+      "datePublished": "2025-01-15T10:00:00.000Z",
+      "dateModified": new Date().toISOString(),
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://cyberteckmaster.com"
+          }
+        ]
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": ["h1", "h2", ".hero-description"]
+      }
+    },
+    {
+      "@type": "Course",
+      "name": "Certified Ethical Hacker (CEH) Training",
+      "description": "Comprehensive ethical hacking certification course covering penetration testing, vulnerability assessment, and cybersecurity best practices.",
+      "provider": {
+        "@id": "https://cyberteckmaster.com/#organization"
+      },
+      "educationalCredentialAwarded": "Certified Ethical Hacker",
+      "courseMode": "online",
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "duration": "P12W",
+        "startDate": "2025-02-01",
+        "endDate": "2025-04-26"
+      }
+    },
+    {
+      "@type": "Service",
+      "serviceType": "Cybersecurity Consulting",
+      "provider": {
+        "@id": "https://cyberteckmaster.com/#organization"
+      },
+      "areaServed": "Worldwide",
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "serviceUrl": "https://cyberteckmaster.com/services",
+        "serviceSmsNumber": "+1-800-555-CYBER"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is zero trust cybersecurity?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Zero trust cybersecurity is a security framework that assumes no user or device should be trusted by default, requiring continuous verification and authentication for all access requests, following NIST 800-207 guidelines."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does it take to become a certified ethical hacker?",
+          "acceptedAnswer": {
+            '
+
+            "@type": "Answer",
+            "text": "Our Certified Ethical Hacker (CEH) program typically takes 12 weeks to complete with dedicated study. The course includes hands-on labs, real-world scenarios, and preparation for industry certification exams."
+          }
+        }
+      ]
+    }
+  ]
+};
+---
+
+<Layout
+  title={seoData.title}
+  description={seoData.description}
+  keywords={seoData.keywords}
+  ogImage={seoData.ogImage}
+  canonicalURL={seoData.canonicalURL}
+  structuredData={structuredData}
+  author={seoData.author}
+  publishedTime={seoData.publishedTime}
+  modifiedTime={seoData.modifiedTime}
+  type={seoData.type}
+  locale={seoData.locale}
+>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin slot="head">
+  <link rel="preload" href="/images/hero-background.webp" as="image" slot="head">
+  
+  <!-- DNS Prefetch for External Resources -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" slot="head">
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" slot="head">
+  
+  <!-- Resource Hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" slot="head">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin slot="head">
+  
+  <main>
+    <Hero />
+    <Features />
+    <About />
+    <CTA />
+    <Pricing />
+    <Testimonials />
+    <Faq />
+    <Team />
+    <Blogsection />
+    <Contact />
+    <Clients />
+  </main>
+</Layout>
+
+<style>
+  main {
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding: 2rem;
+  }
+
+  img {
+    loading: lazy;
+    decoding: async;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/inter-var.woff2') format('woff2-variations');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206 penetrating testing, NIST 800-207, managed security services",
   ogImage: "/images/cyberteckmaster-og-image.webp",
   canonicalURL: "https://cyberteckmaster.com/",
   author: "CyberTeckMaster Team",
@@ -162,7 +387,7 @@ const structuredData = {
 };
 ---
 
-<Layout 
+<Layout
   title={seoData.title}
   description={seoData.description}
   keywords={seoData.keywords}
@@ -180,7 +405,7 @@ const structuredData = {
   <link rel="preload" href="/images/hero-background.webp" as="image" slot="head">
   
   <!-- DNS Prefetch for External Resources -->
-  <link rel="dns-prefetch" href="//fonts.googleapis.com" slot` slot="head">
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" slot="head">
   <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" slot="head">
   
   <!-- Resource Hints -->
@@ -189,10 +414,16 @@ const structuredData = {
   
   <main>
     <Hero />
-    <Services />
     <Features />
-    <FAQ />
+    <About />
     <CTA />
+    <Pricing />
+    <Testimonials />
+    <Faq />
+    <Team />
+    <Blogsection />
+    <Contact />
+    <Clients />
   </main>
 </Layout>
 
