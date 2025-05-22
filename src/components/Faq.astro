@@ -1,106 +1,53 @@
 ---
-// src/components/FAQ.astro
+const faqs = [
+  {
+    question: "What is cybersecurity training?",
+    answer: "Our training equips your team with skills to prevent and respond to cyber threats.",
+  },
+  {
+    question: "How does zero trust work?",
+    answer: "Zero trust ensures no one is trusted by default, verifying every access request.",
+  },
+];
 ---
 
-<section id="faq" class="faq-section">
+<section class="faq">
   <h2>Frequently Asked Questions</h2>
-  <p class="section-description">Get answers to common questions about our cybersecurity programs.</p>
-  
   <div class="faq-list">
-    <details>
-      <summary>What is zero trust cybersecurity?</summary>
-      <p>Zero trust cybersecurity assumes no user or device is trusted by default, requiring continuous verification per NIST 800-207 guidelines.</p>
-    </details>
-    <details>
-      <summary>How long does it take to become a certified ethical hacker?</summary>
-      <p>Our CEH program takes 12 weeks, including hands-on labs and exam preparation.</p>
-    </details>
+    {faqs.map((faq) => (
+      <details>
+        <summary>{faq.question}</summary>
+        <p>{faq.answer}</p>
+      </details>
+    ))}
   </div>
 </section>
 
 <style>
-  .faq-section {
+  .faq {
     padding: 4rem 2rem;
     text-align: center;
-    background-color: var(--bg-secondary, #f9f9f9);
   }
-
   h2 {
-    font-size: 25rem;
-    margin-bottom: 1rem;
-    color: var(--text-primary, #1a1a1a);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
   }
-
-  .section-description {
-    font-size: 1.2rem;
-    max-width: 800px;
-    margin: 0 auto 2rem;
-    color: var(--text-secondary, #4a4a4a);
-  }
-
   .faq-list {
     max-width: 800px;
     margin: 0 auto;
     text-align: left;
   }
-
   details {
-    margin: 1rem 0;
-    background-color: var(--card-bg, #ffffff);
+    margin-bottom: 1rem;
     padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
   }
-
   summary {
-    font-size: 1.2rem;
     font-weight: bold;
     cursor: pointer;
-    color: var(--text-primary, #1a1a1a);
   }
-
-  details p {
-    font-size: 1rem;
+  p {
     margin-top: 0.5rem;
-    color: var(--text-secondary, #4a4a4a);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg-secondary: #1a1a1a;
-      --text-primary: #ffffff;
-      --text-secondary: #cccccc;
-      --card-bg: #2a2a2a;
-    }
-
-    .faq-section {
-      background-color: var(--bg-secondary);
-    }
-
-    details {
-      background-color: var(--card-bg);
-    }
-
-    h2, summary {
-      color: var(--text-primary);
-    }
-
-    .section-description, details p {
-      color: var(--text-secondary);
-    }
-  }
-
-  @media (max-width: 600px) {
-    h2 {
-      font-size: 2rem;
-    }
-
-    .section-description {
-      font-size: 1rem;
-    }
-
-    details {
-      padding: 0.75rem;
-    }
   }
 </style>
