@@ -1,191 +1,64 @@
 ---
 import { Image } from 'astro:assets';
-// Example image imports (replace with actual images in your project)
-const trainingImage = '/images/cybersecurity-training.webp';
-const zeroTrustImage = '/images/zero-trust-security.webp';
-const consultingImage = '/images/cybersecurity-consulting.webp';
 ---
 
-<section id="services" class="services-section">
-  <h2>Our Cybersecurity Services</h2>
-  <p class="section-description">Discover CyberTeckMaster’s industry-leading solutions for cybersecurity training, zero trust security, and consulting services.</p>
-  
+<section class="services">
+  <h2>Our Services</h2>
   <div class="services-grid">
-    <!-- Cybersecurity Training -->
-    <article class="service-card">
-      <Image 
-        src={trainingImage} 
-        alt="Cybersecurity Training" 
-        width={300} 
-        height={200} 
-        loading="lazy" 
-        decoding="async"
+    <div class="service-card">
+      <Image
+        src="/images/cybersecurity-training.webp"
+        alt="Cybersecurity training service"
+        width={300}
+        height={200}
       />
-      <h3>Certified Ethical Hacking Training</h3>
-      <p>Master penetration testing, vulnerability assessment, and ethical hacking with our CISSP-ISSAP certified courses, including CEH certification preparation.</p>
-      <a href="/courses/ceh" class="service-cta">Learn More</a>
-    </article>
-    
-    <!-- Zero Trust Security Solutions -->
-    <article class="service-card">
-      <Image 
-        src={zeroTrustImage} 
-        alt="Zero Trust Security Solutions" 
-        width={300} 
-        height={200} 
-        loading="lazy" 
-        decoding="async"
+      <h3>Cybersecurity Training</h3>
+      <p>Empower your team with cutting-edge security skills.</p>
+    </div>
+    <div class="service-card">
+      <Image
+        src="/images/cybersecurity-consulting.webp"
+        alt="Cybersecurity consulting service"
+        width={300}
+        height={200}
       />
-      <h3>Zero Trust Security Solutions</h3>
-      <p>Implement NIST 800-207 compliant zero trust frameworks to secure your organization with continuous verification and advanced cryptography.</p>
-      <a href="/services/zero-trust" class="service-cta">Explore Solutions</a>
-    </article>
-    
-    <!-- Cybersecurity Consulting -->
-    <article class="service-card">
-      <Image 
-        src={consultingImage} 
-        alt="Cybersecurity Consulting" 
-        width={300} 
-        height={200} 
-        loading="lazy" 
-        decoding="async"
+      <h3>Consulting</h3>
+      <p>Expert guidance to secure your business.</p>
+    </div>
+    <div class="service-card">
+      <Image
+        src="/images/zero-trust-security.webp"
+        alt="Zero trust security service"
+        width={300}
+        height={200}
       />
-      <h3>Cybersecurity Consulting</h3>
-      <p>Our experts provide tailored managed security services, Web3 development, and quantum cryptography consulting to protect your business.</p>
-      <a href="/services/consulting" class="service-cta">Get Started</a>
-    </article>
+      <h3>Zero Trust Security</h3>
+      <p>Implement robust zero-trust architectures.</p>
+    </div>
   </div>
 </section>
 
 <style>
-  .services-section {
+  .services {
     padding: 4rem 2rem;
     text-align: center;
-    background-color: var(--bg-secondary, #f9f9f9);
   }
-
   h2 {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: var(--text-primary, #1a1a1a);
+    margin-bottom: 2rem;
   }
-
-  .section-description {
-    font-size: 1.2rem;
-    max-width: 800px;
-    margin: 0 auto 2rem;
-    color: var(--text-secondary, #4a4a4a);
-  }
-
   .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
   }
-
   .service-card {
-    background-color: var(--card-bg, #ffffff);
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
   }
-
-  .service-card:hover {
-    transform: translateY(-5px);
-  }
-
-  .service-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
-
-  .service-card h3 {
+  h3 {
     font-size: 1.5rem;
-    margin: 1rem;
-    color: var(--text-primary, #1a1a1a);
-  }
-
-  .service-card p {
-    font-size: 1rem;
-    margin: 0 1rem 1.5rem;
-    color: var(--text-secondary, #4a4a4a);
-  }
-
-  .service-cta {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    margin: 0 1rem 1.5rem;
-    background-color: var(--accent, #00aaff);
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-  }
-
-  .service-cta:hover {
-    background-color: var(--accent-hover, #0088cc);
-  }
-
-  /* Accessibility */
-  @media (prefers-reduced-motion: reduce) {
-    .service-card {
-      transition: none;
-    }
-  }
-
-  /* Focus Management */
-  .service-cta:focus-visible {
-    outline: 2px solid var(--accent, #00aaff);
-    outline-offset: 2px;
-  }
-
-  /* Dark Mode Support */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg-secondary: #1a1a1a;
-      --text-primary: #ffffff;
-      --text-secondary: #cccccc;
-      --card-bg: #2a2a2a;
-      --accent: #00aaff;
-      --accent-hover: #33bbff;
-    }
-
-    .services-section {
-      background-color: var(--bg-secondary);
-    }
-
-    .service-card {
-      background-color: var(--card-bg);
-    }
-
-    h2,
-    .service-card h3 {
-      color: var(--text-primary);
-    }
-
-    .section-description,
-    .service-card p {
-      color: var(--text-secondary);
-    }
-  }
-
-  /* Responsive Design */
-  @media (max-width: 600px) {
-    h2 {
-      font-size: 2rem;
-    }
-
-    .section-description {
-      font-size: 1rem;
-    }
-
-    .services-grid {
-      grid-template-columns: 1fr;
-    }
+    margin: 1rem 0;
   }
 </style>
