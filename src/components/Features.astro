@@ -1,89 +1,109 @@
 ---
-const features = [
-  {
-    icon: 'assets/features/icon-01.svg',
-    title: 'Free and Open-Source',
-    ref: 'javascript:void(0)',
-    refTitle: 'Learn More',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and industry.',
-  },
-  {
-    icon: 'assets/features/icon-02.svg',
-    title: 'Multipurpose Template',
-    ref: 'javascript:void(0)',
-    refTitle: 'Learn More',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and industry.',
-  },
-  {
-    icon: 'assets/features/icon-03.svg',
-    title: 'High-quality Design',
-    ref: 'javascript:void(0)',
-    refTitle: 'Learn More',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and industry.',
-  },
-  {
-    icon: 'assets/features/icon-04.svg',
-    title: 'All Essential Elements',
-    ref: 'javascript:void(0)',
-    refTitle: 'Learn More',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and industry.',
-  },
-];
+// src/components/Features.astro
 ---
 
-<!-- ====== Features Section Start -->
-<section class="pt-20 pb-8 lg:pt-[120px] lg:pb-[70px] dark:bg-dark">
-  <div class="container">
-    <div class="-mx-4 flex flex-wrap">
-      <div class="w-full px-4">
-        <div class="mb-12 mx-auto max-w-[485px] lg:mb-[70px] text-center">
-          <span class="mb-2 block text-lg font-semibold text-primary">
-            Features
-          </span>
-          <h2 class="mb-3 text-3xl font-bold text-dark dark:text-white sm:text-4xl md:text-[40px] md:leading-[1.2]">
-            Main Features Of Play
-          </h2>
-          <p class="text-base text-body-color dark:text-dark-6">
-            There are many variations of passages of Lorem Ipsum available
-            but the majority have suffered alteration in some form.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="-mx-4 flex flex-wrap">
-      {
-        features.map((feature) => (
-          <div class="w-full px-4 md:w-1/2 lg:w-1/4">
-            <div class="wow fadeInUp group mb-12" data-wow-delay=".1s">
-              <div
-                class="relative z-10 mb-10 flex h-[70px] w-[70px] items-center justify-center rounded-[14px] bg-primary"
-              >
-                <span
-                  class="absolute top-0 left-0 -z-[1] mb-8 flex h-[70px] w-[70px] rotate-[25deg] items-center justify-center rounded-[14px] bg-primary bg-opacity-20 duration-300 group-hover:rotate-45"
-                ></span>
-                <img src={feature.icon} alt="icon" />
-              </div>
-              <h4 class="mb-3 text-xl font-bold text-dark dark:text-white">
-                {feature.title}
-              </h4>
-              <p class="mb-8 text-body-color dark:text-dark-6 lg:mb-9">
-                {feature.description}
-              </p>
-              <a
-                href={feature.ref}
-                class="text-base font-medium text-dark dark:text-white hover:text-primary dark:hover:text-primary"
-              >
-                {feature.refTitle}
-              </a>
-            </div>
-          </div>
-        ))
-      }
-    </div>
+<section id="features" class="features-section">
+  <h2>Why Choose CyberTeckMaster</h2>
+  <p class="section-description">Our unique approach sets us apart in cybersecurity education and solutions.</p>
+  
+  <div class="features-grid">
+    <article class="feature-card">
+      <h3>Expert Instructors</h3>
+      <p>Learn from CISSP-ISSAP certified professionals with real-world experience.</p>
+    </article>
+    <article class="feature-card">
+      <h3>Cutting-Edge Curriculum</h3>
+      <p>Stay ahead with courses on Web3, AI chatbots, and quantum cryptography.</p>
+    </article>
+    <article class="feature-card">
+      <h3>Hands-On Labs</h3>
+      <p>Practice in realistic environments with our advanced training platforms.</p>
+    </article>
   </div>
 </section>
-<!-- ====== Features Section End -->
+
+<style>
+  .features-section {
+    padding: 4rem 2rem;
+    text-align: center;
+    background-color: var(--bg-secondary, #ffffff);
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary, #1a1a1a);
+  }
+
+  .section-description {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    color: var(--text-secondary, #4a4a4a);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .feature-card {
+    padding: 1.5rem;
+    background-color: var(--card-bg, #f9f9f9);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary, #1a1a1a);
+  }
+
+  .feature-card p {
+    font-size: 1rem;
+    color: var(--text-secondary, #4a4a4a);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-secondary: #2a2a2a;
+      --text-primary: #ffffff;
+      --text-secondary: #cccccc;
+      --card-bg: #1a1a1a;
+    }
+
+    .features-section {
+      background-color: var(--bg-secondary);
+    }
+
+    .feature-card {
+      background-color: var(--card-bg);
+    }
+
+    h2, .feature-card h3 {
+      color: var(--text-primary);
+    }
+
+    .section-description, .feature-card p {
+      color: var(--text-secondary);
+    }
+  }
+
+  @media (max-width: 600px) {
+    h2 {
+      font-size: 2rem;
+    }
+
+    .section-description {
+      font-size: 1rem;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
