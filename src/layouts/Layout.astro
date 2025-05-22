@@ -1,600 +1,87 @@
 ---
-// src/layouts/Layout.astro
-export interface Props {
-  title: string;
-  description: string;
-  keywords?: string;
-  ogImage?: string;
-  canonicalURL?: string;
-  structuredData?: object;
-  author?: string;
-  publishedTime?: string;
-  modifiedTime?: string;
-  type?: string;
-  locale?: string;
-  noindex?: boolean;
-}
-
-const {
-  title,
-  description,
-  keywords = "",
-  ogImage = "/images/default-og.webp",
-  canonicalURL = Astro.url.href,
-  structuredData,
-  author = "CyberTeckMaster Team",
-  publishedTime,
-  modifiedTime,
-  type = "website",
-  locale = "en_US",
-  noindex = false
-} = Astro.props;
-
-// Generate optimized title with branding
-const optimizedTitle = title.includes('CyberTeckMaster') ? title : `${title} | CyberTeckMaster`;
-
-// Ensure description is within optimal length
-const optimizedDescription = description.length > 160 ? 
-  description.substring(0, 157) + '...' : description;
-
-// Clean canonical URL
-const cleanCanonicalURL = canonicalURL.endsWith('/') ? 
-  canonicalURL : `${canonicalURL}/`;
-
-// Current year for copyright
-const currentYear = new Date().getFullYear();
-
-// Generate hreflang alternatives
-const hreflangs = [
-  { lang: 'en', url: cleanCanonicalURL },
-  { lang: 'x-default', url: cleanCanonicalURL }
-];
+import { Image } from 'astro:assets';
+const { title = "Cyberteckmaster - Cybersecurity Solutions" } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en" prefix="og: https://ogp.me/ns#">
-<head>
-  <!-- Essential Meta Tags -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="format-detection" content="telephone=no">
-  
-  <!-- SEO Meta Tags -->
-  <title>{optimizedTitle}</title>
-  <meta name="description" content={optimizedDescription}>
-  {keywords && <meta name="keywords" content={keywords}>}
-  <meta name="author" content={author}>
-  <meta name="generator" content={Astro.generator}>
-  
-  <!-- Robots Meta -->
-  {noindex ? (
-    <meta name="robots" content="noindex, nofollow">
-  ) : (
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  )}
-  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href={cleanCanonicalURL}>
-  
-  <!-- Hreflang -->
-  {hreflangs.map(({ lang, url }) => (
-    <link rel="alternate" hreflang={lang} href={url}>
-  ))}
-  
-  <!-- Open Graph Meta Tags -->
-  <meta property="og:type" content={type}>
-  <meta property="og:title" content={optimizedTitle}>
-  <meta property="og:description" content={optimizedDescription}>
-  <meta property="og:url" content={cleanCanonicalURL}>
-  <meta property="og:image" content={new URL(ogImage, Astro.url).href}>
-  <meta property="og:image:alt" content={`${title} - Visual representation`}>
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:site_name" content="CyberTeckMaster">
-  <meta property="og:locale" content={locale}>
-  {publishedTime && <meta property="article:published_time" content={publishedTime}>}
-  {modifiedTime && <meta property="article:modified_time" content={modifiedTime}>}
-  
-  <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@cyberteckmaster">
-  <meta name="twitter:creator" content="@cyberteckmaster">
-  <meta name="twitter:title" content={optimizedTitle}>
-  <meta name="twitter:description" content={optimizedDescription}>
-  <meta name="twitter:image" content={new URL(ogImage, Astro.url).href}>
-  <meta name="twitter:image:alt" content={`${title} - Visual representation`}>
-  
-  <!-- Additional Social Meta -->
-  <meta property="fb:app_id" content="123456789">
-  <meta name="pinterest-rich-pin" content="true">
-  
-  <!-- Favicons and Icons -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#1a1a1a">
-  
-  <!-- Web App Manifest -->
-  <link rel="manifest" href="/site.webmanifest">
-  <meta name="application-name" content="CyberTeckMaster">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="CyberTeckMaster">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="msapplication-TileColor" content="#1a1a1a">
-  <meta name="msapplication-config" content="/browserconfig.xml">
-  <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-  
-  <!-- DNS Prefetch & Preconnect -->
-  <link rel="dns-prefetch" href="//fonts.googleapis.com">
-  <link rel="dns-prefetch" href="//fonts.gstatic.com">
-  <link rel="dns-prefetch" href="//www.google-analytics.com">
-  <link rel="dns-prefetch" href="//www.googletagmanager.com">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
-  <!-- Google Fonts with font-display: swap -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
-  <!-- Additional head content slot -->
-  <slot name="head" />
-  
-  <!-- Structured Data -->
-  {structuredData && (
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
-  )}
-  
-  <!-- Security Headers via Meta -->
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-  
-  <!-- Content Security Policy -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
-  
-  <!-- Critical CSS -->
-  <style>
-    /* CSS Reset & Base Styles */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    :root {
-      /* Color Palette */
-      --color-primary: #1a1a1a;
-      --color-secondary: #00aaff;
-      --color-accent: #00ff88;
-      --color-text: #333333;
-      --color-text-light: #666666;
-      --color-background: #ffffff;
-      --color-surface: #f8f9fa;
-      --color-border: #e9ecef;
-      --color-error: #dc3545;
-      --color-success: #28a745;
-      --color-warning: #ffc107;
-      
-      /* Typography */
-      --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-family-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-      
-      /* Spacing Scale */
-      --space-xs: 0.25rem;
-      --space-sm: 0.5rem;
-      --space-md: 1rem;
-      --space-lg: 1.5rem;
-      --space-xl: 2rem;
-      --space-2xl: 3rem;
-      --space-3xl: 4rem;
-      
-      /* Layout */
-      --container-max-width: 1200px;
-      --header-height: 70px;
-      --border-radius: 8px;
-      --border-radius-sm: 4px;
-      --border-radius-lg: 12px;
-      
-      /* Shadows */
-      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-      
-      /* Transitions */
-      --transition-fast: 150ms ease;
-      --transition-normal: 250ms ease;
-      --transition-slow: 350ms ease;
-    }
-    
-    /* Dark Mode Variables */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --color-primary: #ffffff;
-        --color-text: #e9ecef;
-        --color-text-light: #adb5bd;
-        --color-background: #0a0a0a;
-        --color-surface: #1a1a1a;
-        --color-border: #2d3748;
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content="Cyberteckmaster offers top-tier cybersecurity training, consulting, and zero-trust solutions." />
+    <meta name="keywords" content="cybersecurity, training, consulting, zero trust, Cyberteckmaster" />
+    <meta name="author" content="Cyberteckmaster" />
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content="Secure your business with Cyberteckmaster's expert cybersecurity solutions." />
+    <meta property="og:image" content="/images/cyberteckmaster-og-image.webp" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:type" content="website" />
+    <!-- Preload Font -->
+    <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Favicon -->
+    <link rel="icon" href="/images/logo.webp" type="image/webp" />
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
       }
-    }
-    
-    /* Base HTML Elements */
-    html {
-      font-family: var(--font-family-primary);
-      scroll-behavior: smooth;
-      text-size-adjust: 100%;
-      -webkit-text-size-adjust: 100%;
-      tab-size: 4;
-    }
-    
-    body {
-      background-color: var(--color-background);
-      color: var(--color-text);
-      font-size: 16px;
-      line-height: 1.6;
-      font-weight: 400;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
-      overflow-x: hidden;
-    }
-    
-    /* Typography */
-    h1, h2, h3, h4, h5, h6 {
-      font-family: var(--font-family-heading);
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: var(--space-md);
-      color: var(--color-text);
-    }
-    
-    h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
-    h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
-    h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
-    h4 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
-    h5 { font-size: 1.125rem; }
-    h6 { font-size: 1rem; }
-    
-    p {
-      margin-bottom: var(--space-md);
-      max-width: 65ch;
-    }
-    
-    a {
-      color: var(--color-secondary);
-      text-decoration: none;
-      transition: color var(--transition-fast);
-    }
-    
-    a:hover {
-      color: var(--color-accent);
-      text-decoration: underline;
-    }
-    
-    a:focus {
-      outline: 2px solid var(--color-secondary);
-      outline-offset: 2px;
-    }
-    
-    /* Lists */
-    ul, ol {
-      margin-bottom: var(--space-md);
-      padding-left: var(--space-lg);
-    }
-    
-    li {
-      margin-bottom: var(--space-xs);
-    }
-    
-    /* Images */
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
-    
-    /* Buttons */
-    button {
-      font-family: inherit;
-      cursor: pointer;
-      border: none;
-      background: none;
-      font-size: inherit;
-    }
-    
-    /* Form Elements */
-    input, textarea, select {
-      font-family: inherit;
-      font-size: inherit;
-    }
-    
-    /* Skip Link for Accessibility */
-    .skip-link {
-      position: absolute;
-      top: -40px;
-      left: 6px;
-      background: var(--color-primary);
-      color: var(--color-background);
-      padding: 8px;
-      text-decoration: none;
-      border-radius: var(--border-radius-sm);
-      z-index: 1000;
-    }
-    
-    .skip-link:focus {
-      top: 6px;
-    }
-    
-    /* Container */
-    .container {
-      max-width: var(--container-max-width);
-      margin: 0 auto;
-      padding: 0 var(--space-md);
-    }
-    
-    @media (min-width: 640px) {
-      .container {
-        padding: 0 var(--space-lg);
+      main {
+        min-height: 100vh;
       }
-    }
-    
-    /* Header */
-    .site-header {
-      background: var(--color-primary);
-      color: var(--color-background);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: var(--shadow-md);
-    }
-    
-    .main-nav {
-      padding: var(--space-md) 0;
-    }
-    
-    .nav-wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .logo a {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--color-background);
-      text-decoration: none;
-    }
-    
-    .nav-menu {
-      display: flex;
-      list-style: none;
-      gap: var(--space-lg);
-      margin: 0;
-      padding: 0;
-    }
-    
-    .nav-menu a {
-      color: var(--color-background);
-      font-weight: 500;
-      transition: color var(--transition-fast);
-    }
-    
-    .nav-menu a:hover {
-      color: var(--color-secondary);
-    }
-    
-    /* Footer */
-    .site-footer {
-      background: var(--color-surface);
-      padding: var(--space-3xl) 0 var(--space-xl);
-      margin-top: var(--space-3xl);
-    }
-    
-    /* Utility Classes */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-    
-    .visually-hidden {
-      position: absolute !important;
-      width: 1px !important;
-      height: 1px !important;
-      padding: 0 !important;
-      margin: -1px !important;
-      overflow: hidden !important;
-      clip: rect(0, 0, 0, 0) !important;
-      white-space: nowrap !important;
-      border: 0 !important;
-    }
-    
-    /* Reduced Motion Support */
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-    }
-    
-    /* High Contrast Mode Support */
-    @media (prefers-contrast: high) {
-      :root {
-        --color-border: #000000;
-        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
-        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3);
-        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3);
-      }
-    }
-    
-    /* Focus Management */
-    :focus-visible {
-      outline: 2px solid var(--color-secondary);
-      outline-offset: 2px;
-    }
-    
-    /* Selection Styling */
-    ::selection {
-      background-color: var(--color-secondary);
-      color: var(--color-background);
-    }
-  </style>
-</head>
-
-<body>
-  <!-- Skip Link for Accessibility -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  
-  <!-- Header -->
-  <header role="banner" class="site-header">
-    <nav role="navigation" aria-label="Main navigation" class="main-nav">
-      <div class="container">
-        <div class="nav-wrapper">
-          <!-- Logo -->
-          <div class="logo">
-            <a href="/" aria-label="CyberTeckMaster Home">
-              CyberTeckMaster
-            </a>
-          </div>
-          
-          <!-- Navigation Menu -->
-          <ul class="nav-menu">
-            <li><a href="#cybersecurity">Cybersecurity</a></li>
-            <li><a href="#web3">Web3</a></li>
-            <li><a href="#ai">AI Solutions</a></li>
-            <li><a href="#quantum">Quantum</a></li>
-            <li><a href="#training">Training</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Main Content -->
-  <main id="main-content" role="main">
-    <slot />
-  </main>
-
-  <!-- Footer -->
-  <footer role="contentinfo" class="site-footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-info">
-          <h3>CyberTeckMaster</h3>
-          <p>Leading cybersecurity training and solutions provider. Master zero trust security, ethical hacking, Web3 development, and quantum cryptography.</p>
-          <p>&copy; {currentYear} CyberTeckMaster. All rights reserved.</p>
-        </div>
-        
-        <div class="footer-links">
-          <div>
-            <h4>Services</h4>
-            <ul>
-              <li><a href="/cybersecurity-training">Cybersecurity Training</a></li>
-              <li><a href="/ethical-hacking">Ethical Hacking</a></li>
-              <li><a href="/zero-trust">Zero Trust Solutions</a></li>
-              <li><a href="/web3-development">Web3 Development</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4>Company</h4>
-            <ul>
-              <li><a href="/about">About Us</a></li>
-              <li><a href="/careers">Careers</a></li>
-              <li><a href="/blog">Blog</a></li>
-              <li><a href="/contact">Contact</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4>Legal</h4>
-            <ul>
-              <li><a href="/privacy">Privacy Policy</a></li>
-              <li><a href="/terms">Terms of Service</a></li>
-              <li><a href="/cookies">Cookie Policy</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Performance & Analytics Scripts -->
-  <script>
-    // Critical performance optimizations
-    (function() {
-      // Preload important pages on hover
-      document.addEventListener('mouseover', function(e) {
-        const link = e.target.closest('a[href^="/"]');
-        if (link && !link.dataset.preloaded) {
-          const href = link.getAttribute('href');
-          const prefetchLink = document.createElement('link');
-          prefetchLink.rel = 'prefetch';
-          prefetchLink.href = href;
-          document.head.appendChild(prefetchLink);
-          link.dataset.preloaded = 'true';
-        }
-      }, { passive: true });
-      
-      // Lazy load analytics after user interaction
-      let analyticsLoaded = false;
-      function loadAnalytics() {
-        if (analyticsLoaded) return;
-        analyticsLoaded = true;
-        
-        // Google Analytics 4
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
-        document.head.appendChild(script);
-        
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX', {
-          page_title: document.title,
-          page_location: window.location.href,
-          anonymize_ip: true
-        });
-      }
-      
-      // Load analytics on first user interaction
-      ['click', 'scroll', 'keydown', 'touchstart'].forEach(event => {
-        document.addEventListener(event, loadAnalytics, { once: true, passive: true });
-      });
-      
-      // Service Worker Registration
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/sw.js')
-            .then(function(registration) {
-              console.log('ServiceWorker registration successful');
-            })
-            .catch(function(err) {
-              console.log('ServiceWorker registration failed');
-            });
-        });
-      }
-    })();
-  </script>
-</body>
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">
+          <Image src="/images/logo.webp" alt="Cyberteckmaster logo" width={50} height={50} />
+        </a>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <p>&copy; {new Date().getFullYear()} Cyberteckmaster. All rights reserved.</p>
+    </footer>
+  </body>
 </html>
+
+<style>
+  header {
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #ddd;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+  }
+  a {
+    text-decoration: none;
+    color: #333;
+  }
+  footer {
+    text-align: center;
+    padding: 2rem;
+    background: #f8f8f8;
+  }
+</style>
