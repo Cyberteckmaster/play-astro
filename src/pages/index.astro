@@ -1,675 +1,220 @@
----
-import About from '../components/Aboutsection.astro';
-import Features from '../components/Features.astro';
-import Hero from '../components/Hero.astro';
-import Testimonials from '../components/Testimonials.astro';
-import Layout from '../layouts/Layout.astro';
-import Pricing from '../components/Pricingsection.astro';
-import Faq from '../components/FAQ.astro'; // Reuse existing FAQ.astro
-import Clients from '../components/Clients.astro';
-import Team from '../components/Team.astro';
-import Contact from '../components/Contactsection.astro';
-import CTA from '../components/CTA.astro'; // Reuse existing CTA.astro
-import Blogsection from '../components/Blogsection.astro';
 
-export const prerender = true;
-
-const seoData = {
-  title: "CyberTeckMaster | #1 Cybersecurity Training & Zero Trust Solutions 2025",
-  description: "Master cybersecurity with CyberTeckMaster's certified ethical hacking courses, zero trust security solutions, Web3 development, AI chatbots & quantum cryptography. CISSP-ISSAP certified experts. Start your cyber career today!",
-  keywords: "cybersecurity training, zero trust security, ethical hacking certification, CISSP course, Web3 development, AI chatbot development, quantum cryptography, cyber security solutions, penetration testing, NIST 800-207, managed security services",
-  ogImage: "/images/cyberteckmaster-og-image.webp",
-  canonicalURL: "https://cyberteckmaster.com/",
-  author: "CyberTeckMaster Team",
-  publishedTime: "2025-01-15T10:00:00.000Z",
-  modifiedTime: new Date().toISOString(),
-  type: "website",
-  locale: "en_US"
-};
-
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://cyberteckmaster.com/#organization",
-      "name": "CyberTeckMaster",
-      "url": "https://cyberteckmaster.com",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://cyberteckmaster.com/images/logo.webp",
-        "width": 300,
-        "height": 100
-      },
-      "sameAs": [
-        "https://twitter.com/cyberteckmaster",
-        "https://linkedin.com/company/cyberteckmaster",
-        "https://github.com/cyberteckmaster",
-        "https://youtube.com/@cyberteckmaster"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+1-800-555-CYBER",
-        "contactType": "Customer Service",
-        "email": "info@cyberteckmaster.com",
-        "availableLanguage": "English"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "US",
-        "addressRegion": "CA",
-        "addressLocality": "San Francisco"
-      },
-      "foundingDate": "2020-01-01",
-      "numberOfEmployees": "50-100",
-      "description": "Leading cybersecurity training provider specializing in zero trust security, ethical hacking, Web3 development, and quantum cryptography solutions."
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://cyberteckmaster.com/#website",
-      "url": "https://cyberteckmaster.com",
-      "name": "CyberTeckMaster",
-      "publisher": {
-        "@id": "https://cyberteckmaster.com/#organization"
-      },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://cyberteckmaster.com/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      },
-      "inLanguage": "en-US"
-    },
-    {
-      "@type": "WebPage",
-      "@id": "https://cyberteckmaster.com/#webpage",
-      "url": "https://cyberteckmaster.com",
-      "name": "CyberTeckMaster | #1 Cybersecurity Training & Zero Trust Solutions 2025",
-      "description": "Master cybersecurity with CyberTeckMaster's certified ethical hacking courses, zero trust security solutions, Web3 development, AI chatbots & quantum cryptography.",
-      "isPartOf": {
-        "@id": "https://cyberteckmaster.com/#website"
-      },
-      "about": {
-        "@id": "https://cyberteckmaster.com/#organization"
-      },
-      "primaryImageOfPage": {
-        "@type": "ImageObject",
-        "url": "https://cyberteckmaster.com/images/cyberteckmaster-hero.webp"
-      },
-      "datePublished": "2025-01-15T10:00:00.000Z",
-      "dateModified": new Date().toISOString(),
-      "breadcrumb": {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://cyberteckmaster.com"
-          }
-        ]
-      },
-      "speakable": {
-        "@type": "SpeakableSpecification",
-        "cssSelector": ["h1", "h2", ".hero-description"]
-      }
-    },
-    {
-      "@type": "Course",
-      "name": "Certified Ethical Hacker (CEH) Training",
-      "description": "Comprehensive ethical hacking certification course covering penetration testing, vulnerability assessment, and cybersecurity best practices.",
-      "provider": {
-        "@id": "https://cyberteckmaster.com/#organization"
-      },
-      "educationalCredentialAwarded": "Certified Ethical Hacker",
-      "courseMode": "online",
-      "hasCourseInstance": {
-        "@type": "CourseInstance",
-        "courseMode": "online",
-        "duration": "P12W",
-        "startDate": "2025-02-01",
-        "endDate": "2025-04-26"
-      }
-    },
-    {
-      "@type": "Service",
-      "serviceType": "Cybersecurity Consulting",
-      "provider": {
-        "@id": "https://cyberteckmaster.com/#organization"
-      },
-      "areaServed": "Worldwide",
-      "availableChannel": {
-        "@type": "ServiceChannel",
-        "serviceUrl": "https://cyberteckmaster.com/services",
-        "serviceSmsNumber": "+1-800-555-CYBER"
-      }
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is zero trust cybersecurity?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Zero trust cybersecurity is a security framework that assumes no user or device should be trusted by default, requiring continuous verification and authentication for all access requests, following NIST 800-207 guidelines."
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead 
+      title="Cyberteckmaster: Your Source for Tech Insights & Solutions" 
+      description="Explore Cyberteckmaster for expert tech tutorials, AI insights, cybersecurity guides, and IT solutions. Join our community to stay ahead in technology." 
+    />
+    <meta property="og:title" content="Cyberteckmaster: Your Source for Tech Insights & Solutions" />
+    <meta property="og:description" content="Explore Cyberteckmaster for expert tech tutorials, AI insights, cybersecurity guides, and IT solutions. Join our community to stay ahead in technology." />
+    <meta property="og:image" content="/images/cyberteckmaster-home-hero.webp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cyberteckmaster.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cyberteckmaster: Your Source for Tech Insights & Solutions" />
+    <meta name="twitter:description" content="Explore Cyberteckmaster for expert tech tutorials, AI insights, cybersecurity guides, and IT solutions." />
+    <meta name="twitter:image" content="/images/cyberteckmaster-home-hero.webp" />
+    <link rel="canonical" href="https://cyberteckmaster.com" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Cyberteckmaster",
+        "url": "https://cyberteckmaster.com",
+        "description": "Cyberteckmaster provides expert tech tutorials, AI insights, cybersecurity guides, and IT solutions.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Cyberteckmaster",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://cyberteckmaster.com/images/logo.webp"
           }
         },
-        {
-          "@type": "Question",
-          "name": "How long does it take to become a certified ethical hacker?",
-          "acceptedAnswer": {
-            '
-
-            "@type": "Answer",
-            "text": "Our Certified Ethical Hacker (CEH) program typically takes 12 weeks to complete with dedicated study. The course includes hands-on labs, real-world scenarios, and preparation for industry certification exams."
-          }
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://cyberteckmaster.com/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
         }
-      ]
-    }
-  ]
-};
----
-
-<Layout
-  title={seoData.title}
-  description={seoData.description}
-  keywords={seoData.keywords}
-  ogImage={seoData.ogImage}
-  canonicalURL={seoData.canonicalURL}
-  structuredData={structuredData}
-  author={seoData.author}
-  publishedTime={seoData.publishedTime}
-  modifiedTime={seoData.modifiedTime}
-  type={seoData.type}
-  locale={seoData.locale}
->
-  <!-- Preload Critical Resources -->
-  <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin slot="head">
-  <link rel="preload" href="/images/hero-background.webp" as="image" slot="head">
-  
-  <!-- DNS Prefetch for External Resources -->
-  <link rel="dns-prefetch" href="//fonts.googleapis.com" slot="head">
-  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" slot="head">
-  
-  <!-- Resource Hints -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" slot="head">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin slot="head">
-  
-  <main>
-    <Hero />
-    <Features />
-    <About />
-    <CTA />
-    <Pricing />
-    <Testimonials />
-    <Faq />
-    <Team />
-    <Blogsection />
-    <Contact />
-    <Clients />
-  </main>
-</Layout>
-
-<style>
-  main {
-    min-height: 100vh;
-    overflow-x: hidden;
-    padding: 2rem;
-  }
-
-  img {
-    loading: lazy;
-    decoding: async;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  @font-face {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url('/fonts/inter-var.woff2') format('woff2-variations');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206 penetrating testing, NIST 800-207, managed security services",
-  ogImage: "/images/cyberteckmaster-og-image.webp",
-  canonicalURL: "https://cyberteckmaster.com/",
-  author: "CyberTeckMaster Team",
-  publishedTime: "2025-01-15T10:00:00.000Z",
-  modifiedTime: new Date().toISOString(),
-  type: "website",
-  locale: "en_US"
-};
-
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://cyberteckmaster.com/#organization",
-      "name": "CyberTeckMaster",
-      "url": "https://cyberteckmaster.com",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://cyberteckmaster.com/images/logo.webp",
-        "width": 300,
-        "height": 100
-      },
-      "sameAs": [
-        "https://twitter.com/cyberteckmaster",
-        "https://linkedin.com/company/cyberteckmaster",
-        "https://github.com/cyberteckmaster",
-        "https://youtube.com/@cyberteckmaster"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+1-800-555-CYBER",
-        "contactType": "Customer Service",
-        "email": "info@cyberteckmaster.com",
-        "availableLanguage": "English"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "US",
-        "addressRegion": "CA",
-        "addressLocality": "San Francisco"
-      },
-      "foundingDate": "2020-01-01",
-      "numberOfEmployees": "50-100",
-      "description": "Leading cybersecurity training provider specializing in zero trust security, ethical hacking, Web3 development, and quantum cryptography solutions."
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://cyberteckmaster.com/#website",
-      "url": "https://cyberteckmaster.com",
-      "name": "CyberTeckMaster",
-      "publisher": {
-        "@id": "https://cyberteckmaster.com/#organization"
-      },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://cyberteckmaster.com/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      },
-      "inLanguage": "en-US"
-    },
-    {
-      "@type": "WebPage",
-      "@id": "https://cyberteckmaster.com/#webpage",
-      "url": "https://cyberteckmaster.com",
-      "name": "CyberTeckMaster | #1 Cybersecurity Training & Zero Trust Solutions 2025",
-      "description": "Master cybersecurity with CyberTeckMaster's certified ethical hacking courses, zero trust security solutions, Web3 development, AI chatbots & quantum cryptography.",
-      "isPartOf": {
-        "@id": "https://cyberteckmaster.com/#website"
-      },
-      "about": {
-        "@id": "https://cyberteckmaster.com/#organization"
-      },
-      "primaryImageOfPage": {
-        "@type": "ImageObject",
-        "url": "https://cyberteckmaster.com/images/cyberteckmaster-hero.webp"
-      },
-      "datePublished": "2025-01-15T10:00:00.000Z",
-      "dateModified": new Date().toISOString(),
-      "breadcrumb": {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://cyberteckmaster.com"
-          }
-        ]
-      },
-      "speakable": {
-        "@type": "SpeakableSpecification",
-        "cssSelector": ["h1", "h2", ".hero-description"]
       }
-    },
-    {
-      "@type": "Course",
-      "name": "Certified Ethical Hacker (CEH) Training",
-      "description": "Comprehensive ethical hacking certification course covering penetration testing, vulnerability assessment, and cybersecurity best practices.",
-      "provider": {
-        "@id": "https://cyberteckmaster.com/#organization"
-      },
-      "educationalCredentialAwarded": "Certified Ethical Hacker",
-      "courseMode": "online",
-      "hasCourseInstance": {
-        "@type": "CourseInstance",
-        "courseMode": "online",
-        "duration": "P12W",
-        "startDate": "2025-02-01",
-        "endDate": "2025-04-26"
+    </script>
+    <style>
+      main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        color: #212121;
       }
-    },
-    {
-      "@type": "Service",
-      "serviceType": "Cybersecurity Consulting",
-      "provider": {
-        "@id": "https://cyberteckmaster.com/#organization"
-      },
-      "areaServed": "Worldwide",
-      "availableChannel": {
-        "@type": "ServiceChannel",
-        "serviceUrl": "https://cyberteckmaster.com/services",
-        "serviceSmsNumber": "+1-800-555-CYBER"
+      h1 {
+        font-size: 2.5rem;
+        color: #0066cc;
+        text-align: center;
+        margin-bottom: 1rem;
       }
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is zero trust cybersecurity?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Zero trust cybersecurity is a security framework that assumes no user or device should be trusted by default, requiring continuous verification and authentication for all access requests, following NIST 800-207 guidelines."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How long does it take to become a certified ethical hacker?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Our Certified Ethical Hacker (CEH) program typically takes 12 weeks to complete with dedicated study. The course includes hands-on labs, real-world scenarios, and preparation for industry certification exams."
-          }
+      .hero {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      .hero img {
+        width: 100%;
+        max-width: 960px;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      }
+      .intro, .services, .featured, .cta {
+        margin-bottom: 2rem;
+      }
+      .intro p, .services p {
+        line-height: 1.6;
+        font-size: 1.1rem;
+      }
+      .services ul {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+      }
+      .services li {
+        background: #f8fafc;
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .featured h2 {
+        font-size: 1.8rem;
+        color: #0066cc;
+        margin-bottom: 1rem;
+      }
+      .featured-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+      .featured-card {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 1rem;
+        text-align: center;
+      }
+      .featured-card img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 6px;
+        margin-bottom: 0.5rem;
+      }
+      .cta {
+        text-align: center;
+        background: #f1f5f9;
+        padding: 2rem;
+        border-radius: 8px;
+      }
+      .cta a {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background: #0066cc;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 500;
+      }
+      .cta a:hover {
+        background: #004080;
+      }
+      .share-buttons {
+        text-align: center;
+        margin: 1rem 0;
+      }
+      .share-buttons a {
+        margin: 0 0.5rem;
+        color: #0066cc;
+        text-decoration: none;
+      }
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
         }
-      ]
-    }
-  ]
-};
----
-
-<Layout
-  title={seoData.title}
-  description={seoData.description}
-  keywords={seoData.keywords}
-  ogImage={seoData.ogImage}
-  canonicalURL={seoData.canonicalURL}
-  structuredData={structuredData}
-  author={seoData.author}
-  publishedTime={seoData.publishedTime}
-  modifiedTime={seoData.modifiedTime}
-  type={seoData.type}
-  locale={seoData.locale}
->
-  <!-- Preload Critical Resources -->
-  <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin slot="head">
-  <link rel="preload" href="/images/hero-background.webp" as="image" slot="head">
-  
-  <!-- DNS Prefetch for External Resources -->
-  <link rel="dns-prefetch" href="//fonts.googleapis.com" slot="head">
-  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" slot="head">
-  
-  <!-- Resource Hints -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" slot="head">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin slot="head">
-  
-  <main>
-    <Hero />
-    <Features />
-    <About />
-    <CTA />
-    <Pricing />
-    <Testimonials />
-    <Faq />
-    <Team />
-    <Blogsection />
-    <Contact />
-    <Clients />
-  </main>
-</Layout>
-
-<style>
-  main {
-    min-height: 100vh;
-    overflow-x: hidden;
-    padding: 2rem;
-  }
-
-  img {
-    loading: lazy;
-    decoding: async;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  @font-face {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url('/fonts/inter-var.woff2') format('woff2-variations');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
-
-  .hero-container {
-    min-height: 100vh;
-    contain: layout;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
-
-  :focus-visible {
-    outline: 2px solid #00aaff;
-    outline-offset: 2px;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg-primary: #0a0a0a;
-      --text-primary: #ffffff;
-      --accent: #00aaff;
-    }
-
-    body {
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-    }
-  }
-</style>
-
-<script type="module">
-  const preloadNextPage = () => {
-    const links = document.querySelectorAll('a[href^="/"]');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const link = entry.target;
-          const href = link.getAttribute('href');
-          if (href && !document.querySelector(`link[href="${href}"]`)) {
-            const prefetchLink = document.createElement('link');
-            prefetchLink.rel = 'prefetch';
-            prefetchLink.href = href;
-            document.head.appendChild(prefetchLink);
-          }
-          observer.unobserve(link);
+        main {
+          padding: 1rem;
         }
-      });
-    });
-    
-    links.forEach(link => observer.observe(link));
-  };
-
-  const lazyLoadResources = () => {
-    const loadCSS = (href) => {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = href;
-      link.media = 'print';
-      link.onload = () => { link.media = 'all'; };
-      document.head.appendChild(link);
-    };
-
-    let interacted = false;
-    const loadAnalytics = () => {
-      if (interacted) return;
-      interacted = true;
-      
-      const script1 = document.createElement('script');
-      script1.async = true;
-      script1.src = 'https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID';
-      document.head.appendChild(script1);
-      
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'GA_MEASUREMENT_ID', {
-        page_title: document.title,
-        page_location: window.location.href
-      });
-    };
-
-    ['click', 'scroll', 'keydown'].forEach(event => {
-      document.addEventListener(event, loadAnalytics, { once: true, passive: true });
-    });
-  };
-
-  const monitorPerformance = () => {
-    if ('PerformanceObserver' in window) {
-      new PerformanceObserver((entryList) => {
-        const entries = entryList.getEntries();
-        const lastEntry = entries[entries.length - 1];
-        console.log('LCP:', lastEntry.startTime);
-      }).observe({ entryTypes: ['largest-contentful-paint'] });
-
-      new PerformanceObserver((entryList) => {
-        for (const entry of entryList.getEntries()) {
-          console.log('FID:', entry.processingStart - entry.startTime);
-        }
-      }).observe({ entryTypes: ['first-input'] });
-
-      new PerformanceObserver((entryList) => {
-        for (const entry of entryList.getEntries()) {
-          if (!entry.hadRecentInput) {
-            console.log('CLS:', entry.value);
-          }
-        }
-      }).observe({ entryTypes: ['layout-shift'] });
-    }
-  };
-
-  const registerServiceWorker = async () => {
-    if ('serviceWorker' in navigator) {
-      try {
-        const registration = await navigator.serviceWorker.register('/sw.js');
-        console.log('SW registered:', registration);
-      } catch (error) {
-        console.log('SW registration failed:', error);
       }
-    }
-  };
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="hero">
+        <img src="/images/cyberteckmaster-home-hero.webp" alt="Cyberteckmaster Tech Insights" loading="lazy" width="960" height="480" />
+        <h1>Welcome to Cyberteckmaster</h1>
+      </div>
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      preloadNextPage();
-      lazyLoadResources();
-      monitorPerformance();
-      registerServiceWorker();
-    });
-  } else {
-    preloadNextPage();
-    lazyLoadResources();
-    monitorPerformance();
-    registerServiceWorker();
-  }
+      <section class="intro">
+        <p>
+          At <a href="https://cyberteckmaster.com">Cyberteckmaster</a>, we empower tech enthusiasts, developers, and IT professionals with cutting-edge insights and practical solutions. Explore our expert-led <a href="/blog/category/ai">AI tutorials</a>, <a href="/blog/category/cybersecurity">cybersecurity guides</a>, and <a href="/blog/category/cloud">cloud computing resources</a> to stay ahead in the tech world.
+        </p>
+        <p>
+          Founded in 2025, our mission is to make technology accessible and actionable. Whether you’re mastering <a href="/blog/blockchain-guide">blockchain</a> or securing your <a href="/blog/cloud-security-guide">cloud infrastructure</a>, Cyberteckmaster is your trusted partner.
+        </p>
+      </section>
 
-  window.addEventListener('error', (event) => {
-    console.error('JavaScript error:', event.error);
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'exception', {
-        description: event.error.toString(),
-        fatal: false
-      });
-    }
-  });
+      <section class="services">
+        <h2>Our Tech Solutions</h2>
+        <ul>
+          <li>
+            <h3>AI & Machine Learning</h3>
+            <p>Learn to build AI models with our <a href="/blog/ai-programming-series">step-by-step guides</a>.</p>
+          </li>
+          <li>
+            <h3>Cybersecurity</h3>
+            <p>Protect your systems with <a href="/blog/zero-trust">zero-trust strategies</a>.</p>
+          </li>
+          <li>
+            <h3>Cloud Computing</h3>
+            <p>Master AWS, Azure, and more with our <a href="/blog/cloud">cloud tutorials</a>.</p>
+          </li>
+          <li>
+            <h3>Developer Tools</h3>
+            <p>Access free <a href="/resources">templates and scripts</a> for your projects.</p>
+          </li>
+        </ul>
+      </section>
 
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const perfData = performance.getEntriesByType('navigation')[0];
-      console.log('Page Load Time:', perfData.loadEventEnd - perfData.loadEventStart);
-      
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'timing_complete', {
-          name: 'load',
-          value: Math.round(perfData.loadEventEnd - perfData.loadEventStart)
-        });
-      }
-    }, 0);
-  });
-</script>
+      <section class="featured">
+        <h2>Featured Content</h2>
+        <div class="featured-grid">
+          <div class="featured-card">
+            <img src="/images/ai-tutorial.webp" alt="AI Tutorial" loading="lazy" width="200" height="120" />
+            <h3><a href="/blog/ai-programming-series">AI Programming Series</a></h3>
+            <p>Start your AI journey with our beginner-friendly tutorials.</p>
+          </div>
+          <div class="featured-card">
+            <img src="/images/cybersecurity-guide.webp" alt="Cybersecurity Guide" loading="lazy" width="200" height="120" />
+            <h3><a href="/blog/zero-trust">Zero-Trust Security</a></h3>
+            <p>Learn how to secure your network with modern strategies.</p>
+          </div>
+          <div class="featured-card">
+            <img src="/images/cloud-guide.webp" alt="Cloud Computing Guide" loading="lazy" width="200" height="120" />
+            <h3><a href="/blog/cloud-security-guide">Cloud Security</a></h3>
+            <p>Protect your cloud infrastructure with expert tips.</p>
+          </div>
+        </div>
+      </section>
 
-<!-- Critical Resource Hints -->
-<link rel="manifest" href="/manifest.json" slot="head">
-<meta name="theme-color" content="#1a1a1a" slot="head">
+      <section class="cta">
+        <h2>Join the Cyberteckmaster Community</h2>
+        <p>Subscribe for weekly tech insights, tutorials, and exclusive resources.</p>
+        <a href="/subscribe" aria-label="Subscribe to Cyberteckmaster">Get Started Now</a>
+      </section>
 
-<!-- Security Headers -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;" slot="head">
-<meta http-equiv="X-Content-Type-Options" content="nosniff" slot="head">
-<meta http-equiv="X-Frame-Options" content="DENY" slot="head">
-<meta http-equiv="X-XSS-Protection" content="1; mode=block" slot="head">
-
-<!-- Performance Hints -->
-<meta http-equiv="Accept-CH" content="DPR, Viewport-Width, Width" slot="head">
-
-<!-- Critical Business Information -->
-<script type="application/ld+json" slot="head">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "CyberTeckMaster",
-  "image": "https://cyberteckmaster.com/images/logo.webp",
-  "telephone": "+1-800-555-CYBER",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "123 Cyber Street",
-    "addressLocality": "San Francisco",
-    "addressRegion": "CA",
-    "postalCode": "94105",
-    "addressCountry": "US"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 37.7749,
-    "longitude": -122.4194
-  },
-  "url": "https://cyberteckmaster.com",
-  "priceRange": "$$",
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": [
-      "Monday",
-      "Tuesday", 
-      "Wednesday",
-      "Thursday",
-      "Friday"
-    ],
-    "opens": "09:00",
-    "closes": "17:00"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "247"
-  }
-}
-</script>
+      <div class="share-buttons">
+        <a href="https://twitter.com/intent/tweet?text=Discover%20Cyberteckmaster&url=https://cyberteckmaster.com" target="_blank" aria-label="Share on Twitter">Share on Twitter</a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://cyberteckmaster.com" target="_blank" aria-label="Share on LinkedIn">Share on LinkedIn</a>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
